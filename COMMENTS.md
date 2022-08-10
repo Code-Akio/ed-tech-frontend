@@ -18,4 +18,4 @@ Devido a simplicidade da tela e falta de componentes reutilizáveis, utilizei a 
 * Acessibilidade
 
 ## Quais requisitos obrigatórios que não foram entregues
-Coming Soon
+* Faltou concluir a tela de estudante, que vai precisar de mais uma rota no backend
