@@ -3,7 +3,9 @@
     <v-col cols="12">
       <v-row class="mt-8">
         <v-col cols="12">
-          <v-btn color="primary" elevation="0" large>Cadastrar Aluno</v-btn>
+          <v-btn color="primary text-capitalize" elevation="0" large to="/new_student">
+            Cadastrar Aluno
+          </v-btn>
         </v-col>
       </v-row>
 
