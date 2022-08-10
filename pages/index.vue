@@ -29,11 +29,26 @@
                     <v-icon small class="mr-2" @click="editItem(row)">
                       mdi-pencil
                     </v-icon>
-                    <v-icon small @click="deleteItem(row)">
+                    <v-icon small @click="deleteItem">
                       mdi-delete
                     </v-icon>
                   </td>
                 </tr>
+
+                <v-dialog v-model="dialogDelete" max-width="500px">
+                  <v-card>
+                    <v-card-title class="text-h5">
+                      Tem certeza que deseja excluir o aluno?
+                    </v-card-title>
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn class="red white--text" elevation="0" @click="deleteItemConfirm(row.item.id)">Excluir
+                      </v-btn>
+                      <v-btn elevation="0" @click="closeDelete">Cancelar</v-btn>
+                      <v-spacer></v-spacer>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
               </template>
             </v-data-table>
           </v-card>
@@ -62,6 +77,7 @@ export default {
         { text: 'CPF', value: 'cpf' },
         { text: 'Ações', value: 'actions', sortable: false },
       ],
+      dialogDelete: false,
     }
   },
 
@@ -73,11 +89,24 @@ export default {
       // this.dialog = true
     },
 
-    deleteItem(item) {
-      console.log(item);
-      // this.editedIndex = this.students.indexOf(item)
-      // this.editedItem = Object.assign({}, item)
-      // this.dialogDelete = true
+    deleteItem() {
+      this.dialogDelete = true;
+    },
+
+    async deleteItemConfirm(id) {
+      try {
+        await this.$axios.$delete(`/students/${id}`);
+
+        this.students = await this.$axios.$get('/students');
+
+        this.dialogDelete = false;
+      } catch (error) {
+        console.log('Error on delete student');
+      }
+    },
+
+    closeDelete() {
+      this.dialogDelete = false;
     },
   },
 }
